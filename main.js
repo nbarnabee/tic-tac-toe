@@ -21,15 +21,14 @@ function initializeGame() {
 function setPlayerChoice(click) {
   const clicked=click.target;
   let chosen = choiceArray.indexOf(+clicked.value);
-  if (clicked.classList.contains("x") || clicked.classList.contains("o")) {
-    return
-  } else { 
+  if (choiceArray.includes(chosen)) {
     clicked.classList.add("x");
     playerSet.push(+clicked.value);
     choiceArray.splice(chosen, 1);
     console.log(choiceArray);
     console.log(playerSet);
-  };
+  }
+  else return;
 
   if (evaluateSet(playerSet) === true) {
     alert("Player wins!");
@@ -48,5 +47,16 @@ function evaluateSet(set) {
 }
 
 function setComputerChoice() {
-  return;
+  let compChoice = Math.floor(Math.random() * 9);
+  if (choiceArray.includes(compChoice)) {
+    console.log(`Computer chooses ${compChoice}`);
+    if (evaluateSet(computerSet) === true) {
+      alert("Player wins!");
+      buttonArray.forEach(element => element.removeEventListener("click", setPlayerChoice));
+      playerSet = [];
+      computerSet = [];
+    }
+    return;
+  }
+  else setComputerChoice();
 }
