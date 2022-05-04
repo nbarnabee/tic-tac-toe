@@ -3,6 +3,7 @@ const buttonSet = document.querySelectorAll('.game-square');
 const buttonArray = Array.from(buttonSet);
 let playerSet = [];
 let computerSet = [];
+let choiceArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 const victorySets = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]]
 
 function initializeGame() {
@@ -10,7 +11,7 @@ function initializeGame() {
   buttonArray.forEach(element=>{
     if (element.classList.contains("x")) {
       element.classList.remove("x")
-    } else if (element.classList.contains("x")) {
+    } else if (element.classList.contains("o")) {
       element.classList.remove("o")
     } else return;
   });
@@ -19,11 +20,14 @@ function initializeGame() {
 
 function setPlayerChoice(click) {
   const clicked=click.target;
+  let chosen = choiceArray.indexOf(+clicked.value);
   if (clicked.classList.contains("x") || clicked.classList.contains("o")) {
     return
   } else { 
     clicked.classList.add("x");
     playerSet.push(+clicked.value);
+    choiceArray.splice(chosen, 1);
+    console.log(choiceArray);
     console.log(playerSet);
   };
 
