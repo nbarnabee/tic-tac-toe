@@ -205,9 +205,17 @@ textarea {
 
 /*--------- Game Board  ----------*/
 
+h1,
+h2 {
+  margin-top: 2%;
+  font-size: 2rem;
+  text-align: center;
+}
+
+
 
 .game-board {
-  margin-block: 10%;
+  margin-block: 2%;
   margin-inline: auto;
   width: max(300px, 25vw);
   height: max(300px, 25vw);
@@ -223,6 +231,10 @@ textarea {
   border: 1px solid black;
 }
 
+.game-square:hover {
+  outline: 2px solid red;
+}
+
 .x {
   background: url("./assets/x.svg") center no-repeat;
   background-size: 100%;
@@ -231,4 +243,28 @@ textarea {
 .o {
   background: url("./assets/o.svg") center no-repeat;
   background-size: 78%;
+}
+
+.initialize {
+  margin-inline: auto;
+  border: 2px solid black;
+  border-radius: 2px;
+  cursor: pointer;
+  display: block;
+  font-weight: 800;
+  height: 3.5em;
+  line-height: 3.5em;
+  padding: 0 1.5em;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+.initialize:hover {
+  background: gray;
+  color: white;
+  transition: 0.2s;
 }
