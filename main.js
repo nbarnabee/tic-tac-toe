@@ -60,11 +60,13 @@ function evaluateSet(set, player) {
   for (i = 0; i < victorySets.length; i++) {
     if (victorySets[i].every(num => set.includes(num))) {
       console.log("victory");
+      document.querySelector("h2").innerContent = `The ${player} wins!`
       gameIdle(player);
       return;
     }
   }
   if (choiceArray.length === 0) {
+    document.querySelector("h2").innerContent= "Tie game!";
     gameIdle();
     return;
   }
@@ -77,8 +79,9 @@ function evaluateSet(set, player) {
 
 function gameIdle(player) {
   if (player) {
-    alert(`The ${player} wins!`)
-  } else console.log("Tie game!");
+    document.querySelector("h2").innerContent = `The ${player} wins!`
+  } else { document.querySelector("h2").innerContent= "Tie game!";
+};
   console.log("Game idle");
   buttonArray.forEach(element => element.removeEventListener("click", setPlayerChoice));
   playerSet = [];
