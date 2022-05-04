@@ -70,6 +70,11 @@ function evaluateSet(set) {
     if (victorySets[i].every(num => set.includes(num)))
     return true
   }
+  if (choiceArray.length === 0) {
+    alert("Tie game!");
+    gameIdle();
+  }
+  else return;
 }
 
 // Prepare the game for restart
