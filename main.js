@@ -10,14 +10,16 @@ const victorySets = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 
 // Reset the game board and set eventListeners
 
 function initializeGame() {
+  document.querySelector("h2").textContent = "";
   buttonArray.forEach(element => element.classList.add("ready"));
   buttonArray.forEach(element => element.addEventListener("click", setPlayerChoice));
   buttonArray.forEach(element=>{
     if (element.classList.contains("x")) {
       element.classList.remove("x")
-    } else if (element.classList.contains("o")) {
+    } 
+    if (element.classList.contains("o")) {
       element.classList.remove("o")
-    } else return;
+    }
   });
   console.log("Initialized");
 }
@@ -36,6 +38,7 @@ function setPlayerChoice(click) {
     if (evaluateSet(playerSet) === true) {
       document.querySelector("h2").textContent = "Player wins";
       gameIdle();
+      return;
     }
     else setComputerChoice();
   }
@@ -65,7 +68,6 @@ function setComputerChoice() {
 function evaluateSet(set) {
   for (i = 0; i < victorySets.length; i++) {
     if (victorySets[i].every(num => set.includes(num))) {
-      console.log("victory");
       return true;
     }
   }
