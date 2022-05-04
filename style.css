@@ -206,10 +206,19 @@ textarea {
 /*--------- Game Board  ----------*/
 
 h1,
-h2 {
+h2,
+.score-board {
   margin-top: 2%;
   font-size: 2rem;
   text-align: center;
+}
+
+h2 {
+  height: 51px;
+}
+
+.score-board {
+  font-size: 1.5rem;
 }
 
 
