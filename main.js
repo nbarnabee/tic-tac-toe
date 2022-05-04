@@ -32,7 +32,11 @@ function setPlayerChoice(click) {
     choiceArray.splice(chosen, 1);
     console.log(`Choice array: ${choiceArray}`);
     console.log(`Player set: ${playerSet}`);
-    evaluateSet(playerSet, "Player");
+    if (evaluateSet(playerSet) === true) {
+      alert("Player wins");
+      gameIdle();
+    }
+    else setComputerChoice();
   }
   else return;
 }
@@ -49,20 +53,18 @@ function setComputerChoice() {
     let choiceIndex = choiceArray.indexOf(compChoice);
     choiceArray.splice(choiceIndex, 1);
     console.log(`Choice array: ${choiceArray}`);
-    evaluateSet(computerSet, "Computer");
+    evaluateSet(computerSet);
   }
   else setComputerChoice();
 }
 
 // Check for a win condition 
 
-function evaluateSet(set, player) {
+function evaluateSet(set) {
   for (i = 0; i < victorySets.length; i++) {
     if (victorySets[i].every(num => set.includes(num))) {
       console.log("victory");
-      document.querySelector("h2").innerContent = `The ${player} wins!`
-      gameIdle(player);
-      return;
+      return true;
     }
   }
   if (choiceArray.length === 0) {
