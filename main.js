@@ -32,12 +32,7 @@ function setPlayerChoice(click) {
     clicked.classList.add("x");
     playerSet.push(+clicked.value);
     choiceArray.splice(chosen, 1);
-    if (evaluateSet(playerSet) === true) {
-      document.querySelector("h2").textContent = "Player wins";
-      gameIdle();
-      return;
-    }
-    else setComputerChoice();
+    evaluateSet(playerSet, "Player");
   }
   else return;
 }
@@ -51,19 +46,18 @@ function setComputerChoice() {
   let compTarget = document.querySelector(`[value = '${compChoice}']`);
   compTarget.classList.add("o");
   choiceArray.splice(randomNum, 1);
-  if (evaluateSet(computerSet) === true) {
-    document.querySelector("h2").textContent = "Computer wins!";
-    gameIdle();
-  };
+  evaluateSet(computerSet, "Computer");
 }
 
 
 // Check for a win condition 
 
-function evaluateSet(set) {
+function evaluateSet(set, player) {
   for (i = 0; i < victorySets.length; i++) {
     if (victorySets[i].every(num => set.includes(num))) {
-      return true;
+      document.querySelector("h2").textContent = `${player} wins!`;
+      gameIdle();
+      return;
     }
   }
   if (choiceArray.length === 0) {
@@ -71,6 +65,10 @@ function evaluateSet(set) {
     gameIdle();
     return;
   }
+  if (player === "Player") {
+    setComputerChoice();
+  }
+  return;
 }
 
 // Prepare the game for restart
