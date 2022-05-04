@@ -32,14 +32,9 @@ function setPlayerChoice(click) {
     choiceArray.splice(chosen, 1);
     console.log(`Choice array: ${choiceArray}`);
     console.log(`Player set: ${playerSet}`);
+    evaluateSet(playerSet, Player);
   }
   else return;
-
-  if (evaluateSet(playerSet) === true) {
-    alert("Player wins!");
-    gameIdle();
-  }
-  else setComputerChoice();
 }
 
 // Computer picks randomly from the possible choices (In the future, I would like to stick some basic logic in here to let the computer make more informed decisions)
@@ -54,21 +49,18 @@ function setComputerChoice() {
     let choiceIndex = choiceArray.indexOf(compChoice);
     choiceArray.splice(choiceIndex, 1);
     console.log(`Choice array: ${choiceArray}`);
-    if (evaluateSet(computerSet) === true) {
-      alert("Computer wins!");
-      gameIdle();
-    }
-    return;
+    evaluateSet(computerSet, Computer);
   }
   else setComputerChoice();
 }
 
 // Check for a win condition 
 
-function evaluateSet(set) {
+function evaluateSet(set, player) {
   for (i = 0; i < victorySets.length; i++) {
     if (victorySets[i].every(num => set.includes(num)))
-    return true
+    alert(`The ${player} wins!`);
+    return true;
   }
   if (choiceArray.length === 0) {
     alert("Tie game!");
