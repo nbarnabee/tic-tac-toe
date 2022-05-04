@@ -165,6 +165,7 @@ button,
 textarea,
 select {
   font: inherit;
+  background-color: inherit;
 }
 
 p,
