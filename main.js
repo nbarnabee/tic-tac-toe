@@ -21,7 +21,6 @@ function initializeGame() {
       element.classList.remove("o")
     }
   });
-  console.log("Initialized");
 }
 
 // Check to see if the player has made a valid choice; if yes, do various things, check for a win condition, and trigger the computer choice (this function probably does too much)
@@ -33,8 +32,6 @@ function setPlayerChoice(click) {
     clicked.classList.add("x");
     playerSet.push(+clicked.value);
     choiceArray.splice(chosen, 1);
-    console.log(`Choice array: ${choiceArray}`);
-    console.log(`Player set: ${playerSet}`);
     if (evaluateSet(playerSet) === true) {
       document.querySelector("h2").textContent = "Player wins";
       gameIdle();
@@ -51,11 +48,9 @@ function setComputerChoice() {
   let randomNum = Math.floor(Math.random() * choiceArray.length);
   let compChoice = choiceArray[randomNum];
   computerSet.push(compChoice);
-  console.log(`Computer set : ${computerSet}`);
   let compTarget = document.querySelector(`[value = '${compChoice}']`);
   compTarget.classList.add("o");
   choiceArray.splice(randomNum, 1);
-  console.log(`Choice array: ${choiceArray}`);
   if (evaluateSet(computerSet) === true) {
     document.querySelector("h2").textContent = "Computer wins!";
     gameIdle();
@@ -81,7 +76,6 @@ function evaluateSet(set) {
 // Prepare the game for restart
 
 function gameIdle(player) {
-  console.log("Game idle");
   buttonArray.forEach(element => element.removeEventListener("click", setPlayerChoice));
   buttonArray.forEach(element => element.classList.remove("ready"));
   playerSet = [];
