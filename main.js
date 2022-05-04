@@ -32,7 +32,7 @@ function setPlayerChoice(click) {
     choiceArray.splice(chosen, 1);
     console.log(`Choice array: ${choiceArray}`);
     console.log(`Player set: ${playerSet}`);
-    evaluateSet(playerSet, Player);
+    evaluateSet(playerSet, "Player");
   }
   else return;
 }
@@ -49,7 +49,7 @@ function setComputerChoice() {
     let choiceIndex = choiceArray.indexOf(compChoice);
     choiceArray.splice(choiceIndex, 1);
     console.log(`Choice array: ${choiceArray}`);
-    evaluateSet(computerSet, Computer);
+    evaluateSet(computerSet, "Computer");
   }
   else setComputerChoice();
 }
@@ -58,20 +58,28 @@ function setComputerChoice() {
 
 function evaluateSet(set, player) {
   for (i = 0; i < victorySets.length; i++) {
-    if (victorySets[i].every(num => set.includes(num)))
-    alert(`The ${player} wins!`);
-    return true;
+    if (victorySets[i].every(num => set.includes(num))) {
+      console.log("victory");
+      gameIdle(player);
+      return;
+    }
   }
   if (choiceArray.length === 0) {
-    alert("Tie game!");
     gameIdle();
+    return;
   }
-  else return;
+  else if (player === "Player") {
+    setComputerChoice();
+  }
 }
 
 // Prepare the game for restart
 
-function gameIdle() {
+function gameIdle(player) {
+  if (player) {
+    alert(`The ${player} wins!`)
+  } else console.log("Tie game!");
+  console.log("Game idle");
   buttonArray.forEach(element => element.removeEventListener("click", setPlayerChoice));
   playerSet = [];
   computerSet = [];
