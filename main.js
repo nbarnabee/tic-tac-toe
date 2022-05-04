@@ -26,7 +26,7 @@ function initializeGame() {
 function setPlayerChoice(click) {
   const clicked=click.target;
   let chosen = choiceArray.indexOf(+clicked.value);
-  if (choiceArray.includes(chosen)) {
+  if (choiceArray.includes(+clicked.value)) {
     clicked.classList.add("x");
     playerSet.push(+clicked.value);
     choiceArray.splice(chosen, 1);
