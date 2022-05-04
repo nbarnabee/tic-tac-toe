@@ -254,7 +254,7 @@ h2 {
   background-size: 78%;
 }
 
-.initialize {
+.initializer {
   margin-inline: auto;
   border: 2px solid black;
   border-radius: 2px;
@@ -269,11 +269,22 @@ h2 {
   white-space: nowrap;
   text-transform: uppercase;
   font-size: 0.9rem;
+}
+
+.light-button {
+  background: white;
+  color: black;
   transition: 0.2s;
 }
 
-.initialize:hover {
+.light-button:hover {
   background: gray;
+  color: white;
+  transition: 0.2s;
+}
+
+.dark-button {
+  background: black;
   color: white;
   transition: 0.2s;
 }
