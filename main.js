@@ -10,6 +10,7 @@ const victorySets = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 
 // Reset the game board and set eventListeners
 
 function initializeGame() {
+  buttonArray.forEach(element => element.classList.add("ready"));
   buttonArray.forEach(element => element.addEventListener("click", setPlayerChoice));
   buttonArray.forEach(element=>{
     if (element.classList.contains("x")) {
@@ -33,7 +34,7 @@ function setPlayerChoice(click) {
     console.log(`Choice array: ${choiceArray}`);
     console.log(`Player set: ${playerSet}`);
     if (evaluateSet(playerSet) === true) {
-      alert("Player wins");
+      document.querySelector("h2").textContent = "Player wins";
       gameIdle();
     }
     else setComputerChoice();
@@ -41,22 +42,23 @@ function setPlayerChoice(click) {
   else return;
 }
 
-// Computer picks randomly from the possible choices (In the future, I would like to stick some basic logic in here to let the computer make more informed decisions)
+// Computer picks randomly from the values present in choiceArray (In the future, I would like to stick some basic logic in here to let the computer make more informed decisions)
 
 function setComputerChoice() {
-  let compChoice = Math.floor(Math.random() * 9);
-  if (choiceArray.includes(compChoice)) {
-    computerSet.push(compChoice);
-    console.log(`Computer set : ${computerSet}`);
-    let compTarget = document.querySelector(`[value = '${compChoice}']`);
-    compTarget.classList.add("o");
-    let choiceIndex = choiceArray.indexOf(compChoice);
-    choiceArray.splice(choiceIndex, 1);
-    console.log(`Choice array: ${choiceArray}`);
-    evaluateSet(computerSet);
-  }
-  else setComputerChoice();
+  let randomNum = Math.floor(Math.random() * choiceArray.length);
+  let compChoice = choiceArray[randomNum];
+  computerSet.push(compChoice);
+  console.log(`Computer set : ${computerSet}`);
+  let compTarget = document.querySelector(`[value = '${compChoice}']`);
+  compTarget.classList.add("o");
+  choiceArray.splice(randomNum, 1);
+  console.log(`Choice array: ${choiceArray}`);
+  if (evaluateSet(computerSet) === true) {
+    document.querySelector("h2").textContent = "Computer wins!";
+    gameIdle();
+  };
 }
+
 
 // Check for a win condition 
 
@@ -68,24 +70,18 @@ function evaluateSet(set) {
     }
   }
   if (choiceArray.length === 0) {
-    document.querySelector("h2").innerContent= "Tie game!";
+    document.querySelector("h2").textContent = "Tie game!";
     gameIdle();
     return;
-  }
-  else if (player === "Player") {
-    setComputerChoice();
   }
 }
 
 // Prepare the game for restart
 
 function gameIdle(player) {
-  if (player) {
-    document.querySelector("h2").innerContent = `The ${player} wins!`
-  } else { document.querySelector("h2").innerContent= "Tie game!";
-};
   console.log("Game idle");
   buttonArray.forEach(element => element.removeEventListener("click", setPlayerChoice));
+  buttonArray.forEach(element => element.classList.remove("ready"));
   playerSet = [];
   computerSet = [];
   choiceArray = [0, 1, 2, 3, 4, 5, 6, 7, 8];
