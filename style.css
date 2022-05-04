@@ -231,7 +231,7 @@ h2 {
   border: 1px solid black;
 }
 
-.game-square:hover {
+.ready:hover {
   outline: 2px solid red;
 }
 
