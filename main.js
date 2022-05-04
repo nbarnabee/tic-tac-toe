@@ -5,6 +5,9 @@ let playerSet = [];
 let computerSet = [];
 let choiceArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 const victorySets = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]]
+let playerScore = 0;
+let computerScore = 0;
+document.querySelector(".score-board").textContent = `Player: ${playerScore},  Computer: ${computerScore}`;
 
 
 // Reset the game board and set eventListeners
@@ -56,6 +59,10 @@ function evaluateSet(set, player) {
   for (i = 0; i < victorySets.length; i++) {
     if (victorySets[i].every(num => set.includes(num))) {
       document.querySelector("h2").textContent = `${player} wins!`;
+      if (player === "Player") {
+        playerScore += 1;
+      } else computerScore += 1;
+      document.querySelector(".score-board").textContent = `Player: ${playerScore},  Computer: ${computerScore}`;
       gameIdle();
       return;
     }
