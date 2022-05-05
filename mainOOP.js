@@ -80,7 +80,9 @@ const ticTacToe = {
      compChoice = 8;
      else {
        let randomNum = Math.floor(Math.random() * ticTacToe.choiceArray.length);
+       if (ticTacToe.choiceArray[randomNum])
        compChoice = ticTacToe.choiceArray[randomNum];
+       else ticTacToe.setComputerChoice();
       }; 
     console.log(compChoice);
     ticTacToe.computerSet.push(compChoice);
