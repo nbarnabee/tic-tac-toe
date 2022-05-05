@@ -41,7 +41,7 @@ const ticTacToe = {
     }
   },
 
-  // Check to see if the player has made a valid choice; if yes, do various things, check for a win condition, and trigger the computer choice (this function probably does too much)
+  /* Check to see if the player has made a valid choice; if yes, adjust the class list of the grid button to display "X", add the value of the choice to the player array, remove it from the array of possible moves, and check to see if the player just won (maybe this function does too much)  */
 
   setPlayerChoice(click) {
     const clicked=click.target;
@@ -55,6 +55,12 @@ const ticTacToe = {
     else return;
   },
 
+
+  /* Search for a valid move, in the following order of preference:
+  1. a move which will let the computer win
+  2. a move which will prevent the player from winning
+  3. a random move  
+  when a valid move is found, update the grid, the computer array and the array of possible choices.  there's some duplication between this and setPlayerChoice() that I could probably eliminate with a cleverer function */
 
  setComputerChoice() {
    let compChoice = ticTacToe.checkForWin(ticTacToe.computerSet);
