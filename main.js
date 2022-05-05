@@ -8,10 +8,9 @@ const ticTacToe = {
   victorySets: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]],
   playerScore: 0,
   computerScore: 0,
-  scoreBoard: document.querySelector(".score-board"),
-
+  
   updateScore() {
-    ticTacToe.scoreBoard.textContent = `Player: ${ticTacToe.playerScore},  Computer: ${ticTacToe.computerScore}`;
+    document.querySelector(".score-board").textContent = `Player: ${this.playerScore},  Computer: ${this.computerScore}`;
   },
 
   initializeGame() {
@@ -51,54 +50,72 @@ const ticTacToe = {
       clicked.classList.add("x");
       ticTacToe.playerSet.push(+clicked.value);
       ticTacToe.choiceArray.splice(chosen, 1);
-      console.log(`Choice array: ${ticTacToe.choiceArray}`);
-    console.log(`Player set: ${ticTacToe.playerSet}`);
       ticTacToe.evaluateSet(ticTacToe.playerSet, "Player");
     }
     else return;
   },
 
-  // Computer picks randomly from the values present in choiceArray (In the future, I would like to stick some basic logic in here to let the computer make more informed decisions)
 
  setComputerChoice() {
-   let compChoice;
-     if (this.choiceArray.includes(0) && ((this.playerSet.includes(1) && this.playerSet.includes(2)) || (this.playerSet.includes(4) && this.playerSet.includes(8)) || (this.playerSet.includes(3) && this.playerSet.includes(6))))
-     {compChoice = 0;}
-    else if (this.choiceArray.includes(1) && ((this.playerSet.includes(0) && this.playerSet.includes(2)) || (this.playerSet.includes(4) && this.playerSet.includes(7))))
-     {compChoice = 1;}
-    else if (this.choiceArray.includes(2) && ((this.playerSet.includes(0) && this.playerSet.includes(1)) || (this.playerSet.includes(5) && this.playerSet.includes(8)) || (this.playerSet.includes(4) && this.playerSet.includes(6))))
-     {compChoice = 2;}
-    else if (this.choiceArray.includes(3) && ((this.playerSet.includes(0) && this.playerSet.includes(6)) || (this.playerSet.includes(4) && this.playerSet.includes(5))))
-     {compChoice = 3;}
-    else if (this.choiceArray.includes(4) && ((this.playerSet.includes(0) && this.playerSet.includes(8)) || (this.playerSet.includes(2) && this.playerSet.includes(6)) || (this.playerSet.includes(1) && this.playerSet.includes(7)) || (this.playerSet.includes(3) && this.playerSet.includes(5))))
-     {compChoice = 4;}
-    else if (this.choiceArray.includes(5) && ((this.playerSet.includes(2) && this.playerSet.includes(8)) || (this.playerSet.includes(3) && this.playerSet.includes(4))))
-     {compChoice = 5;}
-    else if (this.choiceArray.includes(6) && ((this.playerSet.includes(0) && this.playerSet.includes(3)) || (this.playerSet.includes(7) && this.playerSet.includes(8)) || (this.playerSet.includes(2) && this.playerSet.includes(4))))
-     {compChoice = 6;}
-    else if (this.choiceArray.includes(7) && ((this.playerSet.includes(6) && this.playerSet.includes(8)) || (this.playerSet.includes(1) && this.playerSet.includes(4))))
-     {compChoice = 7;}
-    else if (this.choiceArray.includes(8) && ((this.playerSet.includes(2) && this.playerSet.includes(5)) || (this.playerSet.includes(6) && this.playerSet.includes(7)) || (this.playerSet.includes(0) && this.playerSet.includes(4))))
-     {compChoice = 8;}
-     else {
+   let compChoice = ticTacToe.checkForWin(ticTacToe.computerSet);
+   if (typeof compChoice != "number")
+     compChoice = ticTacToe.checkForWin(ticTacToe.playerSet);
+   if (typeof compChoice != "number") {
        let randomNum = Math.floor(Math.random() * ticTacToe.choiceArray.length);
-       if (ticTacToe.choiceArray[randomNum]) {
        compChoice = ticTacToe.choiceArray[randomNum];
-       console.log("Randomly chosen");
-       } 
-       else ticTacToe.setComputerChoice();
-      }; 
+       }; 
     console.log(compChoice);
     if (this.choiceArray.includes(compChoice)) {
     ticTacToe.computerSet.push(compChoice);
     let compTarget = document.querySelector(`[value = '${compChoice}']`);
     compTarget.classList.add("o");
     ticTacToe.choiceArray.splice(this.choiceArray.indexOf(compChoice), 1);
-    console.log(`Choice array: ${ticTacToe.choiceArray}`);
-    console.log(`Computer set: ${ticTacToe.computerSet}`);
     ticTacToe.evaluateSet(ticTacToe.computerSet, "Computer");
     }
     else console.error(`Something is wrong.  I wanted to pick ${compChoice}`)
+  },
+
+
+  // Check the sets to see if a winning move is available
+
+  checkForWin(setToCheck) {
+    if (this.choiceArray.includes(0) && ((setToCheck.includes(1) && setToCheck.includes(2)) || (setToCheck.includes(4) && setToCheck.includes(8)) || (setToCheck.includes(3) && setToCheck.includes(6))))
+     {
+       return 0;
+      }
+    else if (this.choiceArray.includes(1) && ((setToCheck.includes(0) && setToCheck.includes(2)) || (setToCheck.includes(4) && setToCheck.includes(7))))
+     {
+       return 1;
+      }
+    else if (this.choiceArray.includes(2) && ((setToCheck.includes(0) && setToCheck.includes(1)) || (setToCheck.includes(5) && setToCheck.includes(8)) || (setToCheck.includes(4) && setToCheck.includes(6))))
+     {
+       return 2;
+      }
+    else if (this.choiceArray.includes(3) && ((setToCheck.includes(0) && setToCheck.includes(6)) || (setToCheck.includes(4) && setToCheck.includes(5))))
+     {
+       return 3;
+      }
+    else if (this.choiceArray.includes(4) && ((setToCheck.includes(0) && setToCheck.includes(8)) || (setToCheck.includes(2) && setToCheck.includes(6)) || (setToCheck.includes(1) && setToCheck.includes(7)) || (setToCheck.includes(3) && setToCheck.includes(5))))
+     {
+       return 4;
+      }
+    else if (this.choiceArray.includes(5) && ((setToCheck.includes(2) && setToCheck.includes(8)) || (setToCheck.includes(3) && setToCheck.includes(4))))
+     {
+       return 5;
+      }
+    else if (this.choiceArray.includes(6) && ((setToCheck.includes(0) && setToCheck.includes(3)) || (setToCheck.includes(7) && setToCheck.includes(8)) || (setToCheck.includes(2) && setToCheck.includes(4))))
+     {
+       return 6;
+      }
+    else if (this.choiceArray.includes(7) && ((setToCheck.includes(6) && setToCheck.includes(8)) || (setToCheck.includes(1) && setToCheck.includes(4))))
+     {
+       return 7;
+      }
+    else if (this.choiceArray.includes(8) && ((setToCheck.includes(2) && setToCheck.includes(5)) || (setToCheck.includes(6) && setToCheck.includes(7)) || (setToCheck.includes(0) && setToCheck.includes(4))))
+     {
+       return 8;
+      }
+    else return;
   },
 
 
