@@ -59,12 +59,34 @@ const ticTacToe = {
   // Computer picks randomly from the values present in choiceArray (In the future, I would like to stick some basic logic in here to let the computer make more informed decisions)
 
  setComputerChoice() {
+   let compChoice;
+   ticTacToe.playerSet.sort((a, b) => a - b);
+   if (ticTacToe.playerSet.length === 2 && (+this.playerSet.join("") == 12 || +this.playerSet.join("") == 48 || +this.playerSet.join("") == 36) && !this.computerSet.includes(0))
+     compChoice = 0;
+    else if (ticTacToe.playerSet.length == 2 && (+this.playerSet.join("") == 2 || +this.playerSet.join("") == 47) && !this.computerSet.includes(1))
+     compChoice = 1;
+    else if (ticTacToe.playerSet.length === 2 && (+this.playerSet.join("") == 1 || +this.playerSet.join("") == 58 || +this.playerSet.join("") == 46) && !this.computerSet.includes(2))
+     compChoice = 2;
+    else if (ticTacToe.playerSet.length === 2 && (+this.playerSet.join("") == 6 || +this.playerSet.join("") == 45) && !this.computerSet.includes(3))
+     compChoice = 3;
+    else if (ticTacToe.playerSet.length === 2 && (+this.playerSet.join("") == 8 || +this.playerSet.join("") == 26 || +this.playerSet.join("") == 17 || +this.playerSet.join("") == 35) && !this.computerSet.includes(4))
+     compChoice = 4;
+    else if (ticTacToe.playerSet.length === 2 && (+this.playerSet.join("") == 28 || +this.playerSet.join("") == 34) && !this.computerSet.includes(5))
+     compChoice = 5;
+    else if (ticTacToe.playerSet.length === 2 && (+this.playerSet.join("") == 3 || +this.playerSet.join("") == 78) && !this.computerSet.includes(6))
+     compChoice = 6;
+    else if (ticTacToe.playerSet.length === 2 && (+this.playerSet.join("") == 68 || +this.playerSet.join("") == 14) && !this.computerSet.includes(7))
+     compChoice = 7;
+    else if (ticTacToe.playerSet.length === 2 && (+this.playerSet.join("") == 25 || +this.playerSet.join("") == 67 || +this.playerSet.join("") == 4) && !this.computerSet.includes(8))
+     compChoice = 8;
+   else {
     let randomNum = Math.floor(Math.random() * ticTacToe.choiceArray.length);
-    let compChoice = ticTacToe.choiceArray[randomNum];
+    compChoice = ticTacToe.choiceArray[randomNum];
+   }
     ticTacToe.computerSet.push(compChoice);
     let compTarget = document.querySelector(`[value = '${compChoice}']`);
     compTarget.classList.add("o");
-    ticTacToe.choiceArray.splice(randomNum, 1);
+    ticTacToe.choiceArray.splice(this.choiceArray.indexOf(compChoice), 1);
     ticTacToe.evaluateSet(ticTacToe.computerSet, "Computer");
   },
 
