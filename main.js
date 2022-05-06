@@ -41,13 +41,15 @@ const ticTacToe = {
     }
   },
 
-  /* Check to see if the player has made a valid choice; if yes, adjust the class list of the grid button to display "X", add the value of the choice to the player array, remove it from the array of possible moves, and check to see if the player just won (maybe this function does too much)  */
+  /* Check to see if the player has made a valid choice; if yes, adjust the class list of the grid button to display "X", add the value of the choice to the player array, remove it from the array of possible moves, and check to see if the player just won 
+  (maybe this function does too much)  */
 
   setPlayerChoice(click) {
     const clicked=click.target;
     let chosen = ticTacToe.choiceArray.indexOf(+clicked.value);
     if (ticTacToe.choiceArray.includes(+clicked.value)) {
       clicked.classList.add("x");
+      clicked.classList.remove("ready");
       ticTacToe.playerSet.push(+clicked.value);
       ticTacToe.choiceArray.splice(chosen, 1);
       ticTacToe.evaluateSet(ticTacToe.playerSet, "Player");
@@ -60,7 +62,8 @@ const ticTacToe = {
   1. a move which will let the computer win
   2. a move which will prevent the player from winning
   3. a random move  
-  when a valid move is found, update the grid, the computer array and the array of possible choices.  there's some duplication between this and setPlayerChoice() that I could probably eliminate with a cleverer function */
+  when a valid move is found, update the grid, the computer array and the array of possible choices.  
+  there's some duplication between this and setPlayerChoice() that I could probably eliminate with a cleverer function */
 
  setComputerChoice() {
    let compChoice = ticTacToe.checkForWin(ticTacToe.computerSet);
@@ -75,6 +78,7 @@ const ticTacToe = {
     ticTacToe.computerSet.push(compChoice);
     let compTarget = document.querySelector(`[value = '${compChoice}']`);
     compTarget.classList.add("o");
+    compTarget.classList.remove("ready");
     ticTacToe.choiceArray.splice(this.choiceArray.indexOf(compChoice), 1);
     ticTacToe.evaluateSet(ticTacToe.computerSet, "Computer");
     }
