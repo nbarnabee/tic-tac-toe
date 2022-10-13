@@ -12,4 +12,5 @@ There's always room for improvement.
 
 - Introduce a Player class and a child Computer class.
 - Add the possibility of choosing a 2-person game or 1-person vs. computer
+- Alternate starting player
 - Make the page look a little nicer, I guess.
