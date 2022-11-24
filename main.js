@@ -195,7 +195,7 @@ const ticTacToe = {
       );
       setTimeout(() => {
         ticTacToe.setComputerChoice();
-      }, 1000);
+      }, 500);
     }
     if (player === "Computer") {
       buttonArray.forEach((element) =>
