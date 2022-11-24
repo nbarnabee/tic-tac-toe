@@ -62,6 +62,7 @@ const ticTacToe = {
     if (ticTacToe.choiceArray.includes(+clicked.value)) {
       clicked.classList.add("x");
       clicked.classList.remove("ready");
+      clicked.classList.add("chosen");
       ticTacToe.playerSet.push(+clicked.value);
       ticTacToe.choiceArray.splice(chosen, 1);
       ticTacToe.evaluateSet(ticTacToe.playerSet, "Player");
@@ -95,6 +96,7 @@ const ticTacToe = {
       let compTarget = document.querySelector(`[value = '${compChoice}']`);
       compTarget.classList.add("o");
       compTarget.classList.remove("ready");
+      compTarget.classList.add("chosen");
       // The chosen value is removed from the array of possible choices
       ticTacToe.choiceArray.splice(this.choiceArray.indexOf(compChoice), 1);
       // And the set is evaluated to see if the computer just won
@@ -193,6 +195,7 @@ const ticTacToe = {
       buttonArray.forEach((element) =>
         element.removeEventListener("click", ticTacToe.setPlayerChoice)
       );
+      buttonArray.forEach((element) => element.classList.remove("ready"));
       setTimeout(() => {
         ticTacToe.setComputerChoice();
       }, 500);
@@ -201,6 +204,10 @@ const ticTacToe = {
       buttonArray.forEach((element) =>
         element.addEventListener("click", ticTacToe.setPlayerChoice)
       );
+      buttonArray.forEach((element) => {
+        if (!element.classList.contains("chosen"))
+          element.classList.add("ready");
+      });
     }
     return;
   },
@@ -212,6 +219,7 @@ const ticTacToe = {
       element.removeEventListener("click", ticTacToe.setPlayerChoice)
     );
     buttonArray.forEach((element) => element.classList.remove("ready"));
+    buttonArray.forEach((element) => element.classList.remove("chosen"));
     ticTacToe.playerSet = [];
     ticTacToe.computerSet = [];
     ticTacToe.choiceArray = [0, 1, 2, 3, 4, 5, 6, 7, 8];
