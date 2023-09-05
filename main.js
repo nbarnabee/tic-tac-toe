@@ -18,7 +18,12 @@ const ticTacToe = {
   playerScore: 0,
   computerScore: 0,
   tieScore: 0,
-  roundNumber: 0,
+  roundNumber: 1,
+  playerGoesFirst: 0,
+  currentPlayer: {
+    0: "Computer",
+    1: "Player",
+  },
 
   updateScore() {
     document.querySelector(
@@ -26,13 +31,9 @@ const ticTacToe = {
     ).textContent = `Player: ${this.playerScore},  Computer: ${this.computerScore}, Ties: ${this.tieScore}`;
   },
 
+  // This was written assuming that the player would always go first.
   initializeGame() {
     ticTacToe.initializer("off");
-    document.querySelector("h2").textContent = "";
-    buttonArray.forEach((element) => element.classList.add("ready"));
-    buttonArray.forEach((element) =>
-      element.addEventListener("click", ticTacToe.setPlayerChoice)
-    );
     buttonArray.forEach((element) => {
       if (element.classList.contains("x")) {
         element.classList.remove("x");
@@ -41,12 +42,27 @@ const ticTacToe = {
         element.classList.remove("o");
       }
     });
+    document.querySelector("h2").textContent = `Round ${
+      ticTacToe.roundNumber
+    }: ${ticTacToe.currentPlayer[ticTacToe.playerGoesFirst]} Starts`;
+    if (ticTacToe.playerGoesFirst) {
+      buttonArray.forEach((element) => element.classList.add("ready"));
+      buttonArray.forEach((element) =>
+        element.addEventListener("click", ticTacToe.setPlayerChoice)
+      );
+    } else
+      setTimeout(() => {
+        ticTacToe.setComputerChoice();
+      }, 500);
   },
 
   initializer(toStatus) {
     if (toStatus === "off") {
       initializeButton.classList.replace("light-button", "dark-button");
       initializeButton.removeEventListener("click", ticTacToe.initializeGame);
+      document.querySelector("h2").textContent = `Round ${
+        ticTacToe.roundNumber
+      }: ${ticTacToe.currentPlayer[ticTacToe.playerGoesFirst]} Starts`;
       initializeButton.textContent = "Good luck";
     } else if (toStatus === "on") {
       initializeButton.classList.replace("dark-button", "light-button");
@@ -227,9 +243,14 @@ const ticTacToe = {
     ticTacToe.playerSet = [];
     ticTacToe.computerSet = [];
     ticTacToe.choiceArray = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    // whoever went second in the previous round will go first in the next
+    ticTacToe.playerGoesFirst = ticTacToe.playerGoesFirst ? 0 : 1;
+    console.log(ticTacToe.playerGoesFirst);
+    ticTacToe.roundNumber += 1;
     ticTacToe.initializer("on");
   },
 };
 
+ticTacToe.playerGoesFirst = Math.round(Math.random());
 initializeButton.addEventListener("click", ticTacToe.initializeGame);
 ticTacToe.updateScore();
