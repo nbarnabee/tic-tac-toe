@@ -17,11 +17,13 @@ const ticTacToe = {
   ],
   playerScore: 0,
   computerScore: 0,
+  tieScore: 0,
+  roundNumber: 0,
 
   updateScore() {
     document.querySelector(
       ".score-board"
-    ).textContent = `Player: ${this.playerScore},  Computer: ${this.computerScore}`;
+    ).textContent = `Player: ${this.playerScore},  Computer: ${this.computerScore}, Ties: ${this.tieScore}`;
   },
 
   initializeGame() {
@@ -188,6 +190,8 @@ const ticTacToe = {
     }
     if (ticTacToe.choiceArray.length === 0) {
       document.querySelector("h2").textContent = "Tie game!";
+      ticTacToe.tieScore += 1;
+      ticTacToe.updateScore();
       ticTacToe.gameIdle();
       return;
     }
