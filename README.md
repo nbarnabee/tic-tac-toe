@@ -1,6 +1,6 @@
 # tic-tac-toe
 
-Live at https://nbarnabee100devs.github.io/tic-tac-toe/
+Live at [https://nbarnabee.github.io/tic-tac-toe/](https://nbarnabee.github.io/tic-tac-toe/)
 
 /old/original.js contains the original JavaScript code, which I then converted into something in more of an OOP style.
 
